@@ -5,7 +5,8 @@
 //  Created by Danila Belyi on 24.08.2023.
 //
 
-import Foundation
+import UIKit
+import SDWebImage
 
 final class NetworkConverter {
     static let shared = NetworkConverter()

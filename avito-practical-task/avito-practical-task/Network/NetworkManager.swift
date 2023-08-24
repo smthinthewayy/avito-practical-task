@@ -12,8 +12,53 @@ import Foundation
 
 final class NetworkManager {
     // MARK: - Properties
+    
+    static let shared = NetworkManager()
 
     let baseURL: URL = .init(string: "https://www.avito.st/s/interns-ios/")!
+    
+    // MARK: - Initialization
+    
+    private init() {}
+    
+    // MARK: - Public methods
+
+    public func getAdvertisements(completion: @escaping (Result<NetworkAdvertisements, Error>) -> Void) {
+        let url = baseURL.appendingPathComponent("main-page.json")
+        request(url: url, completion: completion)
+    }
+
+    public func getAdvertisementDetails(for id: String, completion: @escaping (Result<NetworkAdvertisementDetails, Error>) -> Void) {
+        let url = baseURL.appendingPathComponent("details/\(id).json")
+        request(url: url, completion: completion)
+    }
+
+    public func loadImageFromURL(_ url: String, completion: @escaping (UIImage) -> Void) {
+        downloadImageFromURL(urlString: url) { result in
+            switch result {
+            case let .success(networkImage):
+                if let networkImage = networkImage {
+                    completion(networkImage)
+                    DDLogInfo("Image downloaded successfully: \(networkImage)")
+                } else {
+                    completion(UIImage())
+                    DDLogError("Image is nil")
+                }
+            case let .failure(error):
+                switch error {
+                case .invalidURL:
+                    DDLogError("Invalid URL")
+                case let .networkError(error):
+                    DDLogError("Network error: \(error)")
+                case .invalidImageData:
+                    DDLogError("Invalid image data")
+                }
+                completion(UIImage())
+            }
+        }
+    }
+    
+    // MARK: - Private methods
 
     private func request<T>(url: URL, completion: @escaping (Result<T, Error>) -> Void) where T: Codable {
         let request = URLRequest(url: url)
@@ -72,13 +117,31 @@ final class NetworkManager {
         task.resume()
     }
 
-    public func getAdvertisements(completion: @escaping (Result<NetworkAdvertisements, Error>) -> Void) {
-        let url = baseURL.appendingPathComponent("main-page.json")
-        request(url: url, completion: completion)
-    }
+    private func downloadImageFromURL(urlString: String, completion: @escaping (Result<UIImage?, ImageDownloadError>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            DispatchQueue.main.async {
+                completion(.failure(.invalidURL))
+            }
+            return
+        }
 
-    public func getAdvertisementDetails(for id: String, completion: @escaping (Result<NetworkAdvertisementDetails, Error>) -> Void) {
-        let url = baseURL.appendingPathComponent("details/\(id).json")
-        request(url: url, completion: completion)
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(.networkError(error)))
+                }
+                return
+            }
+
+            if let imageData = data, let image = UIImage(data: imageData) {
+                DispatchQueue.main.async {
+                    completion(.success(image))
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(.failure(.invalidImageData))
+                }
+            }
+        }.resume()
     }
 }

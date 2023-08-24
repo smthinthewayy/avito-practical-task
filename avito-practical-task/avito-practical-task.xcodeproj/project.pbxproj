@@ -23,6 +23,11 @@
 		71B83BB52A978A8600013C37 /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BB42A978A8600013C37 /* Advertisement.swift */; };
 		71B83BB72A978AF700013C37 /* AdvertisementDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BB62A978AF700013C37 /* AdvertisementDetails.swift */; };
 		71B83BB92A978B8200013C37 /* NetworkConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BB82A978B8200013C37 /* NetworkConverter.swift */; };
+		71B83BBC2A97937500013C37 /* AdvertisementDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BBB2A97937500013C37 /* AdvertisementDetailsViewController.swift */; };
+		71B83BBF2A97958100013C37 /* AdvertisementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */; };
+		71B83BC12A979B0A00013C37 /* ImageDownloadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */; };
+		71B83BC32A97AF6C00013C37 /* AdvertismentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */; };
+		71B83BC62A97B55100013C37 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 71B83BC52A97B55100013C37 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +46,10 @@
 		71B83BB42A978A8600013C37 /* Advertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		71B83BB62A978AF700013C37 /* AdvertisementDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetails.swift; sourceTree = "<group>"; };
 		71B83BB82A978B8200013C37 /* NetworkConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConverter.swift; sourceTree = "<group>"; };
+		71B83BBB2A97937500013C37 /* AdvertisementDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailsViewController.swift; sourceTree = "<group>"; };
+		71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
+		71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadError.swift; sourceTree = "<group>"; };
+		71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertismentsFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +59,7 @@
 			files = (
 				71B83BA12A977E9300013C37 /* CocoaLumberjack in Frameworks */,
 				71B83BA32A977E9300013C37 /* CocoaLumberjackSwift in Frameworks */,
+				71B83BC62A97B55100013C37 /* SDWebImage in Frameworks */,
 				71B83BA52A977E9300013C37 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +104,7 @@
 				71B83BA92A97888400013C37 /* NetworkAdvertisement.swift */,
 				71B83BAB2A97889700013C37 /* NetworkAdvertisementDetails.swift */,
 				71B83BB82A978B8200013C37 /* NetworkConverter.swift */,
+				71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -110,17 +121,18 @@
 		71B83BAE2A9788E100013C37 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				71B83BAF2A9788F600013C37 /* List Of Products */,
+				71B83BAF2A9788F600013C37 /* List Of Advertisements */,
+				71B83BBA2A97935700013C37 /* AdvertisementDetails */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		71B83BAF2A9788F600013C37 /* List Of Products */ = {
+		71B83BAF2A9788F600013C37 /* List Of Advertisements */ = {
 			isa = PBXGroup;
 			children = (
 				71B83B962A97781100013C37 /* ListOfAdvertisementsViewController.swift */,
 			);
-			path = "List Of Products";
+			path = "List Of Advertisements";
 			sourceTree = "<group>";
 		};
 		71B83BB02A97891400013C37 /* Resources */ = {
@@ -140,6 +152,24 @@
 				71B83BB62A978AF700013C37 /* AdvertisementDetails.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		71B83BBA2A97935700013C37 /* AdvertisementDetails */ = {
+			isa = PBXGroup;
+			children = (
+				71B83BBD2A97951F00013C37 /* Views */,
+				71B83BBB2A97937500013C37 /* AdvertisementDetailsViewController.swift */,
+			);
+			path = AdvertisementDetails;
+			sourceTree = "<group>";
+		};
+		71B83BBD2A97951F00013C37 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */,
+				71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +192,7 @@
 				71B83BA02A977E9300013C37 /* CocoaLumberjack */,
 				71B83BA22A977E9300013C37 /* CocoaLumberjackSwift */,
 				71B83BA42A977E9300013C37 /* CocoaLumberjackSwiftLogBackend */,
+				71B83BC52A97B55100013C37 /* SDWebImage */,
 			);
 			productName = "avito-practical-task";
 			productReference = 71B83B7F2A97762100013C37 /* avito-practical-task.app */;
@@ -193,6 +224,7 @@
 			mainGroup = 71B83B762A97762100013C37;
 			packageReferences = (
 				71B83B9F2A977E9300013C37 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				71B83BC42A97B55100013C37 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 71B83B802A97762100013C37 /* Products */;
 			projectDirPath = "";
@@ -220,16 +252,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71B83BBF2A97958100013C37 /* AdvertisementCollectionViewCell.swift in Sources */,
 				71B83B992A97795C00013C37 /* NetworkManager.swift in Sources */,
 				71B83B972A97781100013C37 /* ListOfAdvertisementsViewController.swift in Sources */,
 				71B83B832A97762100013C37 /* AppDelegate.swift in Sources */,
+				71B83BBC2A97937500013C37 /* AdvertisementDetailsViewController.swift in Sources */,
 				71B83B852A97762100013C37 /* SceneDelegate.swift in Sources */,
 				71B83BAC2A97889700013C37 /* NetworkAdvertisementDetails.swift in Sources */,
 				71B83BB72A978AF700013C37 /* AdvertisementDetails.swift in Sources */,
 				71B83BB32A978A7100013C37 /* Advertisements.swift in Sources */,
+				71B83BC32A97AF6C00013C37 /* AdvertismentsFlowLayout.swift in Sources */,
 				71B83BAA2A97888400013C37 /* NetworkAdvertisement.swift in Sources */,
 				71B83BA82A97887300013C37 /* NetworkAdvertisements.swift in Sources */,
 				71B83BB92A978B8200013C37 /* NetworkConverter.swift in Sources */,
+				71B83BC12A979B0A00013C37 /* ImageDownloadError.swift in Sources */,
 				71B83BB52A978A8600013C37 /* Advertisement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,6 +490,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		71B83BC42A97B55100013C37 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -471,6 +515,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 71B83B9F2A977E9300013C37 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwiftLogBackend;
+		};
+		71B83BC52A97B55100013C37 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71B83BC42A97B55100013C37 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
