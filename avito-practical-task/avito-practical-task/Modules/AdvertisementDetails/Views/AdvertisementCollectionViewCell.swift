@@ -77,12 +77,19 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     // MARK: - Public methods
 
     public func setupSubviews(_ advertisement: Advertisement) {
+//        NetworkManager.shared.loadImageFromURL(advertisement.imageURL) { image in
+//            DispatchQueue.main.async {
+//                self.imageView.image = image
+//            }
+//        }
         imageView.sd_setImage(with: advertisement.imageURL)
         titleLabel.text = advertisement.title
         priceLabel.text = advertisement.price
         locationLabel.text = advertisement.location
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.timeStyle = .medium
+        dateFormatter.dateFormat = "d MMMM, yyyy"
         let dateString = dateFormatter.string(from: advertisement.createdDate)
         createdDate.text = dateString
     }

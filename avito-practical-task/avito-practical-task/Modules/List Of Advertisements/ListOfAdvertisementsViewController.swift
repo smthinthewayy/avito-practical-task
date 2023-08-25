@@ -92,7 +92,13 @@ extension ListOfAdvertisementsViewController: UICollectionViewDataSource {
 
 // MARK: UICollectionViewDelegate
 
-extension ListOfAdvertisementsViewController: UICollectionViewDelegate {}
+extension ListOfAdvertisementsViewController: UICollectionViewDelegate {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let advertisementDetailsVC = AdvertisementDetailsViewController()
+        advertisementDetailsVC.advertisementID = advertisements?.advertisements[indexPath.row].id
+        navigationController?.pushViewController(advertisementDetailsVC, animated: true)
+    }
+}
 
 // MARK: UICollectionViewDelegateFlowLayout
 
