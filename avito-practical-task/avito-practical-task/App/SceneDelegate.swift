@@ -13,10 +13,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        
+
         let mainVC = ListOfAdvertisementsViewController()
         let navigationVC = UINavigationController(rootViewController: mainVC)
-        
+
         window?.rootViewController = navigationVC
         window?.makeKeyAndVisible()
     }

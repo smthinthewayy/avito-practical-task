@@ -10,14 +10,14 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    // MARK: Internal
+
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupCocoaLumberjack()
         DDLog.add(DDOSLogger.sharedInstance)
         DDLog.add(DDFileLogger())
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
 
     func application(_: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession,
                      options _: UIScene.ConnectionOptions) -> UISceneConfiguration
@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
+
+    // MARK: Private
 
     private func setupCocoaLumberjack() {
         #if DEBUG

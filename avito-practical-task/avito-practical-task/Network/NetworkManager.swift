@@ -11,17 +11,11 @@ import Foundation
 // MARK: - NetworkManager
 
 final class NetworkManager {
-    // MARK: - Properties
-    
-    static let shared = NetworkManager()
+    // MARK: Lifecycle
 
-    let baseURL: URL = .init(string: "https://www.avito.st/s/interns-ios/")!
-    
-    // MARK: - Initialization
-    
     private init() {}
-    
-    // MARK: - Public methods
+
+    // MARK: Public
 
     public func getAdvertisements(completion: @escaping (Result<NetworkAdvertisements, Error>) -> Void) {
         let url = baseURL.appendingPathComponent("main-page.json")
@@ -57,10 +51,18 @@ final class NetworkManager {
             }
         }
     }
-    
-    // MARK: - Private methods
 
-    private func request<T>(url: URL, completion: @escaping (Result<T, Error>) -> Void) where T: Codable {
+    // MARK: Internal
+
+    static let shared = NetworkManager()
+
+    let baseURL: URL = .init(string: "https://www.avito.st/s/interns-ios/")!
+
+    // MARK: Private
+
+    private let decoder = JSONDecoder()
+
+    private func request<T>(url: URL, completion: @escaping (Result<T, Error>) -> Void) where T: Decodable {
         let request = URLRequest(url: url)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -98,9 +100,9 @@ final class NetworkManager {
             }
 
             if let data = data {
-                let decoder = JSONDecoder()
+                self.decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do {
-                    let parsedData = try decoder.decode(T.self, from: data)
+                    let parsedData = try self.decoder.decode(T.self, from: data)
                     DDLogInfo("Данные были успешно преобразованы в указанный тип ﻿\(T.self)")
                     DispatchQueue.main.async {
                         completion(.success(parsedData))

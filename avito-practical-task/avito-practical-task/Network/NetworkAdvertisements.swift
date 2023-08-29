@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct NetworkAdvertisements: Codable {
-    var advertisements: [NetworkAdvertisement]
+struct NetworkAdvertisements: Decodable {
+    let advertisements: [NetworkAdvertisement]
 }

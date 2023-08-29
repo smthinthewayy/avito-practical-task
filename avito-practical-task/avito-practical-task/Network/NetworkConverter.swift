@@ -5,11 +5,11 @@
 //  Created by Danila Belyi on 24.08.2023.
 //
 
-import UIKit
 import SDWebImage
+import UIKit
 
 final class NetworkConverter {
-    static let shared = NetworkConverter()
+    // MARK: Public
 
     public func fromNetworkAdvertisementToAdvertisement(_ networkAdvertisement: NetworkAdvertisement) -> Advertisement {
         let advertisement = Advertisement(
@@ -17,7 +17,7 @@ final class NetworkConverter {
             title: networkAdvertisement.title,
             price: networkAdvertisement.price,
             location: networkAdvertisement.location,
-            imageURL: URL(string: networkAdvertisement.imageURL)!,
+            imageURL: URL(string: networkAdvertisement.imageUrl)!,
             createdDate: createDateFromString(networkAdvertisement.createdDate)
         )
         return advertisement
@@ -29,7 +29,7 @@ final class NetworkConverter {
             title: networkAdvertisementDetails.title,
             price: networkAdvertisementDetails.price,
             location: networkAdvertisementDetails.location,
-            imageURL: URL(string: networkAdvertisementDetails.imageURL)!,
+            imageURL: URL(string: networkAdvertisementDetails.imageUrl)!,
             createdDate: createDateFromString(networkAdvertisementDetails.createdDate),
             description: networkAdvertisementDetails.description,
             email: networkAdvertisementDetails.email,
@@ -38,10 +38,16 @@ final class NetworkConverter {
         )
         return advertisementDetails
     }
-    
+
     public func fromNetworkAdvertisementsToAdvertisements(_ networkAdvertisements: NetworkAdvertisements) -> Advertisements {
         return Advertisements(advertisements: networkAdvertisements.advertisements.map { fromNetworkAdvertisementToAdvertisement($0) })
     }
+
+    // MARK: Internal
+
+    static let shared = NetworkConverter()
+
+    // MARK: Private
 
     private func createDateFromString(_ string: String) -> Date {
         let dateString = string

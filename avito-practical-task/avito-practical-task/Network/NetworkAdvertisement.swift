@@ -7,20 +7,11 @@
 
 import Foundation
 
-struct NetworkAdvertisement: Codable {
-    var id: String
-    var title: String
-    var price: String
-    var location: String
-    var imageURL: String
-    var createdDate: String
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case price
-        case location
-        case imageURL = "image_url"
-        case createdDate = "created_date"
-    }
+struct NetworkAdvertisement: Decodable {
+    let id: String
+    let title: String
+    let price: String
+    let location: String
+    let imageUrl: String
+    let createdDate: String
 }

@@ -6,16 +6,27 @@
 //
 
 import CocoaLumberjackSwift
+import SkeletonView
 import UIKit
 
 // MARK: - ListOfAdvertisementsViewController
 
 class ListOfAdvertisementsViewController: UIViewController {
+    // MARK: Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        fetchDataForAdvertisementCollectionView()
+    }
+
+    // MARK: Private
+
     private var advertisements: Advertisements?
 
     private let advertisementCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 174.5, height: 300)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,20 +35,6 @@ class ListOfAdvertisementsViewController: UIViewController {
 
         return collectionView
     }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .blue
-        NetworkManager.shared.getAdvertisements { [weak self] result in
-            switch result {
-            case let .success(advertisements):
-                self?.advertisements = NetworkConverter.shared.fromNetworkAdvertisementsToAdvertisements(advertisements)
-                self?.setupUI()
-            case let .failure(error):
-                DDLogError("\(error)")
-            }
-        }
-    }
 
     private func setupUI() {
         view.backgroundColor = .systemBackground
@@ -53,16 +50,28 @@ class ListOfAdvertisementsViewController: UIViewController {
         advertisementCollectionView.dataSource = self
         advertisementCollectionView.delegate = self
     }
+
+    private func fetchDataForAdvertisementCollectionView() {
+        NetworkManager.shared.getAdvertisements { [weak self] result in
+            switch result {
+            case let .success(advertisements):
+                self?.advertisements = NetworkConverter.shared.fromNetworkAdvertisementsToAdvertisements(advertisements)
+                self?.setupUI()
+            case let .failure(error):
+                DDLogError("\(error)")
+            }
+        }
+    }
 }
 
-// MARK: UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension ListOfAdvertisementsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         if let advertisements = advertisements {
             return advertisements.advertisements.count
         } else {
-            return 0
+            return 10
         }
     }
 
@@ -90,7 +99,7 @@ extension ListOfAdvertisementsViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
 extension ListOfAdvertisementsViewController: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -100,13 +109,40 @@ extension ListOfAdvertisementsViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension ListOfAdvertisementsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
         let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
-        let width: CGFloat = (advertisementCollectionView.frame.size.width - space) / 2.0
-        return CGSize(width: width, height: 300)
+        let size: CGFloat = (advertisementCollectionView.frame.size.width - space) / 2.0
+        return CGSize(width: size, height: size + (size * 0.6))
+    }
+}
+
+// MARK: - CommentFlowLayout
+
+final class CommentFlowLayout: UICollectionViewFlowLayout {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let layoutAttributesObjects = super.layoutAttributesForElements(in: rect)?.map { $0.copy() } as? [UICollectionViewLayoutAttributes]
+        layoutAttributesObjects?.forEach { layoutAttributes in
+            if layoutAttributes.representedElementCategory == .cell {
+                if let newFrame = layoutAttributesForItem(at: layoutAttributes.indexPath)?.frame {
+                    layoutAttributes.frame = newFrame
+                }
+            }
+        }
+        return layoutAttributesObjects
+    }
+
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let collectionView = collectionView else { fatalError() }
+        guard let layoutAttributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes else {
+            return nil
+        }
+
+        layoutAttributes.frame.origin.x = sectionInset.left
+        layoutAttributes.frame.size.width = collectionView.safeAreaLayoutGuide.layoutFrame.width - sectionInset.left - sectionInset.right
+        return layoutAttributes
     }
 }

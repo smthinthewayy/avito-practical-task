@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		718132002A9C81580049C3E1 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 718131FF2A9C81580049C3E1 /* SkeletonView */; };
 		71B83B832A97762100013C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83B822A97762100013C37 /* AppDelegate.swift */; };
 		71B83B852A97762100013C37 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83B842A97762100013C37 /* SceneDelegate.swift */; };
 		71B83B8C2A97762200013C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71B83B8B2A97762200013C37 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		71B83BC12A979B0A00013C37 /* ImageDownloadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */; };
 		71B83BC32A97AF6C00013C37 /* AdvertismentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */; };
 		71B83BC62A97B55100013C37 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 71B83BC52A97B55100013C37 /* SDWebImage */; };
+		71BDA9F72A9CB80C00477431 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BDA9F62A9CB80C00477431 /* UIImageViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,7 @@
 		71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
 		71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadError.swift; sourceTree = "<group>"; };
 		71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertismentsFlowLayout.swift; sourceTree = "<group>"; };
+		71BDA9F62A9CB80C00477431 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,7 @@
 				71B83BA32A977E9300013C37 /* CocoaLumberjackSwift in Frameworks */,
 				71B83BC62A97B55100013C37 /* SDWebImage in Frameworks */,
 				71B83BA52A977E9300013C37 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				718132002A9C81580049C3E1 /* SkeletonView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +90,7 @@
 		71B83B812A97762100013C37 /* avito-practical-task */ = {
 			isa = PBXGroup;
 			children = (
+				71BDA9F52A9CB7FA00477431 /* Extensions */,
 				71B83BAD2A9788C500013C37 /* App */,
 				71B83BA62A97881C00013C37 /* Network */,
 				71B83BB12A978A5100013C37 /* Models */,
@@ -130,6 +135,7 @@
 		71B83BAF2A9788F600013C37 /* List Of Advertisements */ = {
 			isa = PBXGroup;
 			children = (
+				71B83BBD2A97951F00013C37 /* Views */,
 				71B83B962A97781100013C37 /* ListOfAdvertisementsViewController.swift */,
 			);
 			path = "List Of Advertisements";
@@ -157,7 +163,6 @@
 		71B83BBA2A97935700013C37 /* AdvertisementDetails */ = {
 			isa = PBXGroup;
 			children = (
-				71B83BBD2A97951F00013C37 /* Views */,
 				71B83BBB2A97937500013C37 /* AdvertisementDetailsViewController.swift */,
 			);
 			path = AdvertisementDetails;
@@ -170,6 +175,14 @@
 				71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		71BDA9F52A9CB7FA00477431 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				71BDA9F62A9CB80C00477431 /* UIImageViewExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +206,7 @@
 				71B83BA22A977E9300013C37 /* CocoaLumberjackSwift */,
 				71B83BA42A977E9300013C37 /* CocoaLumberjackSwiftLogBackend */,
 				71B83BC52A97B55100013C37 /* SDWebImage */,
+				718131FF2A9C81580049C3E1 /* SkeletonView */,
 			);
 			productName = "avito-practical-task";
 			productReference = 71B83B7F2A97762100013C37 /* avito-practical-task.app */;
@@ -225,6 +239,7 @@
 			packageReferences = (
 				71B83B9F2A977E9300013C37 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				71B83BC42A97B55100013C37 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				718131FE2A9C81580049C3E1 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 71B83B802A97762100013C37 /* Products */;
 			projectDirPath = "";
@@ -254,6 +269,7 @@
 			files = (
 				71B83BBF2A97958100013C37 /* AdvertisementCollectionViewCell.swift in Sources */,
 				71B83B992A97795C00013C37 /* NetworkManager.swift in Sources */,
+				71BDA9F72A9CB80C00477431 /* UIImageViewExtensions.swift in Sources */,
 				71B83B972A97781100013C37 /* ListOfAdvertisementsViewController.swift in Sources */,
 				71B83B832A97762100013C37 /* AppDelegate.swift in Sources */,
 				71B83BBC2A97937500013C37 /* AdvertisementDetailsViewController.swift in Sources */,
@@ -482,6 +498,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		718131FE2A9C81580049C3E1 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		71B83B9F2A977E9300013C37 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack";
@@ -501,6 +525,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		718131FF2A9C81580049C3E1 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 718131FE2A9C81580049C3E1 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		71B83BA02A977E9300013C37 /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 71B83B9F2A977E9300013C37 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
