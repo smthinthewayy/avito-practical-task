@@ -21,7 +21,12 @@ class ListOfAdvertisementsViewController: UIViewController {
 
     // MARK: Private
 
-    private var advertisements: Advertisements?
+    private var advertisements: Advertisements = Advertisements(advertisements: []) {
+        didSet {
+            advertisementCollectionView.reloadData()
+            advertisementCollectionView.isHidden = advertisements.advertisements.isEmpty
+        }
+    }
 
     private let advertisementCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -68,11 +73,7 @@ class ListOfAdvertisementsViewController: UIViewController {
 
 extension ListOfAdvertisementsViewController: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        if let advertisements = advertisements {
-            return advertisements.advertisements.count
-        } else {
-            return 10
-        }
+        return advertisements.advertisements.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -81,19 +82,8 @@ extension ListOfAdvertisementsViewController: UICollectionViewDataSource {
         else {
             return UICollectionViewCell()
         }
-
-        if let advertisements = advertisements {
-            cell.setupSubviews(advertisements.advertisements[indexPath.row])
-        } else {
-            cell.setupSubviews(Advertisement(
-                id: "1",
-                title: "Смартфон Apple iPhone 12 оригинал 100% клянусь мамой папой братом собакой",
-                price: "55000 ₽",
-                location: "Москва",
-                imageURL: URL(string: "https://www.avito.st/s/interns-ios/images/1.png")!,
-                createdDate: .now
-            ))
-        }
+        
+        cell.setupSubviews(advertisements.advertisements[indexPath.row])
 
         return cell
     }
@@ -104,7 +94,7 @@ extension ListOfAdvertisementsViewController: UICollectionViewDataSource {
 extension ListOfAdvertisementsViewController: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let advertisementDetailsVC = AdvertisementDetailsViewController()
-        advertisementDetailsVC.advertisementID = advertisements?.advertisements[indexPath.row].id
+        advertisementDetailsVC.advertisementID = advertisements.advertisements[indexPath.row].id
         navigationController?.pushViewController(advertisementDetailsVC, animated: true)
     }
 }

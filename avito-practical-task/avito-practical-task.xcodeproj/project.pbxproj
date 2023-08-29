@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		717D57B62A9E352300118F36 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D57B52A9E352300118F36 /* ImageService.swift */; };
 		718132002A9C81580049C3E1 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 718131FF2A9C81580049C3E1 /* SkeletonView */; };
 		71B83B832A97762100013C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83B822A97762100013C37 /* AppDelegate.swift */; };
 		71B83B852A97762100013C37 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83B842A97762100013C37 /* SceneDelegate.swift */; };
@@ -29,10 +30,10 @@
 		71B83BC12A979B0A00013C37 /* ImageDownloadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */; };
 		71B83BC32A97AF6C00013C37 /* AdvertismentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */; };
 		71B83BC62A97B55100013C37 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 71B83BC52A97B55100013C37 /* SDWebImage */; };
-		71BDA9F72A9CB80C00477431 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BDA9F62A9CB80C00477431 /* UIImageViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		717D57B52A9E352300118F36 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		71B83B7F2A97762100013C37 /* avito-practical-task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "avito-practical-task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71B83B822A97762100013C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71B83B842A97762100013C37 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
 		71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadError.swift; sourceTree = "<group>"; };
 		71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertismentsFlowLayout.swift; sourceTree = "<group>"; };
-		71BDA9F62A9CB80C00477431 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +71,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		717D57B72A9E376100118F36 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				717D57B52A9E352300118F36 /* ImageService.swift */,
+				71B83BB82A978B8200013C37 /* NetworkConverter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		71B83B762A97762100013C37 = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +99,7 @@
 		71B83B812A97762100013C37 /* avito-practical-task */ = {
 			isa = PBXGroup;
 			children = (
-				71BDA9F52A9CB7FA00477431 /* Extensions */,
+				717D57B72A9E376100118F36 /* Services */,
 				71B83BAD2A9788C500013C37 /* App */,
 				71B83BA62A97881C00013C37 /* Network */,
 				71B83BB12A978A5100013C37 /* Models */,
@@ -108,7 +117,6 @@
 				71B83BA72A97887300013C37 /* NetworkAdvertisements.swift */,
 				71B83BA92A97888400013C37 /* NetworkAdvertisement.swift */,
 				71B83BAB2A97889700013C37 /* NetworkAdvertisementDetails.swift */,
-				71B83BB82A978B8200013C37 /* NetworkConverter.swift */,
 				71B83BC02A979B0A00013C37 /* ImageDownloadError.swift */,
 			);
 			path = Network;
@@ -175,14 +183,6 @@
 				71B83BC22A97AF6C00013C37 /* AdvertismentsFlowLayout.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		71BDA9F52A9CB7FA00477431 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				71BDA9F62A9CB80C00477431 /* UIImageViewExtensions.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,7 +269,6 @@
 			files = (
 				71B83BBF2A97958100013C37 /* AdvertisementCollectionViewCell.swift in Sources */,
 				71B83B992A97795C00013C37 /* NetworkManager.swift in Sources */,
-				71BDA9F72A9CB80C00477431 /* UIImageViewExtensions.swift in Sources */,
 				71B83B972A97781100013C37 /* ListOfAdvertisementsViewController.swift in Sources */,
 				71B83B832A97762100013C37 /* AppDelegate.swift in Sources */,
 				71B83BBC2A97937500013C37 /* AdvertisementDetailsViewController.swift in Sources */,
@@ -280,6 +279,7 @@
 				71B83BC32A97AF6C00013C37 /* AdvertismentsFlowLayout.swift in Sources */,
 				71B83BAA2A97888400013C37 /* NetworkAdvertisement.swift in Sources */,
 				71B83BA82A97887300013C37 /* NetworkAdvertisements.swift in Sources */,
+				717D57B62A9E352300118F36 /* ImageService.swift in Sources */,
 				71B83BB92A978B8200013C37 /* NetworkConverter.swift in Sources */,
 				71B83BC12A979B0A00013C37 /* ImageDownloadError.swift in Sources */,
 				71B83BB52A978A8600013C37 /* Advertisement.swift in Sources */,

@@ -5,8 +5,9 @@
 //  Created by Danila Belyi on 24.08.2023.
 //
 
-import SkeletonView
 import UIKit
+
+// MARK: - AdvertisementCollectionViewCell
 
 class AdvertisementCollectionViewCell: UICollectionViewCell {
     // MARK: Lifecycle
@@ -24,7 +25,11 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     // MARK: Public
 
     public func setupSubviews(_ advertisement: Advertisement) {
-        imageView.download(from: advertisement.imageURL)
+        placeholder.isHidden = false
+        imageRequest = imageService.image(for: advertisement.imageURL) { [weak self] image in
+            self?.imageView.image = image
+            self?.placeholder.isHidden = true
+        }
         titleLabel.text = advertisement.title
         priceLabel.text = advertisement.price
         locationLabel.text = advertisement.location
@@ -41,13 +46,19 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
+        placeholder.isHidden = false
         titleLabel.text = nil
         priceLabel.text = nil
         locationLabel.text = nil
         createdDate.text = nil
+        imageRequest?.cancel()
     }
 
     // MARK: Private
+
+    private lazy var imageService = ImageService()
+
+    private var imageRequest: Cancellable?
 
     private let mainView: UIView = {
         let view = UIView()
@@ -64,6 +75,14 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        return view
+    }()
+
+    private let placeholder: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 8
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -112,6 +131,7 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     private func addSubviews() {
         addSubview(mainView)
         mainView.addSubview(imageView)
+        mainView.addSubview(placeholder)
         mainView.addSubview(titleLabel)
         mainView.addSubview(priceLabel)
         mainView.addSubview(locationLabel)
@@ -127,6 +147,11 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
 
             imageView.topAnchor.constraint(equalTo: mainView.topAnchor),
             imageView.widthAnchor.constraint(equalTo: mainView.widthAnchor),
+
+            placeholder.heightAnchor.constraint(equalTo: imageView.heightAnchor),
+            placeholder.widthAnchor.constraint(equalTo: mainView.widthAnchor),
+            placeholder.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            placeholder.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4),
             titleLabel.widthAnchor.constraint(equalTo: mainView.widthAnchor),
