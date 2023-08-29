@@ -38,14 +38,13 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
 
     // MARK: Internal
 
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        let targetSize = CGSize(width: layoutAttributes.frame.width, height: 0)
-        layoutAttributes.frame.size = contentView.systemLayoutSizeFitting(
-            targetSize,
-            withHorizontalFittingPriority: .required,
-            verticalFittingPriority: .fittingSizeLevel
-        )
-        return layoutAttributes
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        titleLabel.text = nil
+        priceLabel.text = nil
+        locationLabel.text = nil
+        createdDate.text = nil
     }
 
     // MARK: Private

@@ -37,6 +37,18 @@ class AdvertisementDetailsViewController: UIViewController {
 
     private var advertisementDetails: AdvertisementDetails?
 
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private let advertisementImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -119,22 +131,29 @@ class AdvertisementDetailsViewController: UIViewController {
     }()
 
     private func setupUI(_ advertisementDetails: AdvertisementDetails) {
+//        title = advertisementDetails.title
         setupSubviews()
         setAttributes(advertisementDetails)
         setupConstraints()
     }
 
     private func setupSubviews() {
-        view.addSubview(advertisementImageView)
-        view.addSubview(advertisementPriceLabel)
-        view.addSubview(advertisementTitleLabel)
-        view.addSubview(advertisementAddressLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(advertisementDescriptionLabel)
-        view.addSubview(contactsLabel)
-        view.addSubview(advertisementEmailLabel)
-        view.addSubview(advertisementPhoneNumberLabel)
-        view.addSubview(advertisementCreatedDateLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        [
+            advertisementImageView,
+            advertisementPriceLabel,
+            advertisementTitleLabel,
+            advertisementAddressLabel,
+            descriptionLabel,
+            advertisementDescriptionLabel,
+            contactsLabel,
+            advertisementEmailLabel,
+            advertisementPhoneNumberLabel,
+            advertisementCreatedDateLabel,
+        ].forEach { view in
+            contentView.addSubview(view)
+        }
     }
 
     private func setAttributes(_ advertisementDetails: AdvertisementDetails) {
@@ -155,10 +174,21 @@ class AdvertisementDetailsViewController: UIViewController {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
             advertisementImageView.widthAnchor.constraint(equalToConstant: view.frame.width),
             advertisementImageView.heightAnchor.constraint(equalToConstant: view.frame.width),
-            advertisementImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            advertisementImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            advertisementImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            advertisementImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 
             advertisementPriceLabel.topAnchor.constraint(equalTo: advertisementImageView.bottomAnchor, constant: 12),
             advertisementPriceLabel.leadingAnchor.constraint(equalTo: advertisementImageView.leadingAnchor, constant: 12),
@@ -187,6 +217,7 @@ class AdvertisementDetailsViewController: UIViewController {
 
             advertisementCreatedDateLabel.topAnchor.constraint(equalTo: advertisementPhoneNumberLabel.bottomAnchor, constant: 16),
             advertisementCreatedDateLabel.leadingAnchor.constraint(equalTo: advertisementPhoneNumberLabel.leadingAnchor),
+            advertisementCreatedDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
         ])
     }
 }

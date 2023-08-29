@@ -26,7 +26,6 @@ class ListOfAdvertisementsViewController: UIViewController {
     private let advertisementCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 174.5, height: 300)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +38,7 @@ class ListOfAdvertisementsViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(advertisementCollectionView)
+        title = "Рекомендации"
 
         NSLayoutConstraint.activate([
             advertisementCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
