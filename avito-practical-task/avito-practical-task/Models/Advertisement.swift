@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Advertisement {
+struct Advertisement: Hashable {
     var id: String
     var title: String
     var price: String

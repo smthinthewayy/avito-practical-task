@@ -27,7 +27,9 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     public func setupSubviews(_ advertisement: Advertisement) {
         placeholder.isHidden = false
         imageRequest = imageService.image(for: advertisement.imageURL) { [weak self] image in
-            self?.imageView.image = image
+            DispatchQueue.main.async {
+                self?.imageView.image = image
+            }
             self?.placeholder.isHidden = true
         }
         titleLabel.text = advertisement.title
@@ -42,6 +44,10 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: Internal
+
+    static var reuseIdentifier: String {
+        return String(describing: AdvertisementCollectionViewCell.self)
+    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -69,6 +75,7 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
 
     private let imageView: UIImageView = {
         let view = UIImageView()
+//        view.image = UIImage(named: "placeholder")
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.isSkeletonable = true
