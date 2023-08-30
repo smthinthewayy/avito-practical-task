@@ -15,6 +15,7 @@ class AdvertisementDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         if let advertisementID = advertisementID {
+            loadingIndicator.startAnimating()
             NetworkManager.shared.getAdvertisementDetails(for: advertisementID) { [weak self] result in
                 switch result {
                 case let .success(networkAdvertisementDetails):
@@ -35,6 +36,8 @@ class AdvertisementDetailsViewController: UIViewController {
 
     // MARK: Private
 
+    private lazy var imageService = ImageService()
+
     private var advertisementDetails: AdvertisementDetails?
 
     private let scrollView: UIScrollView = {
@@ -53,6 +56,12 @@ class AdvertisementDetailsViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
     }()
 
     private let advertisementPriceLabel: UILabel = {
@@ -131,7 +140,6 @@ class AdvertisementDetailsViewController: UIViewController {
     }()
 
     private func setupUI(_ advertisementDetails: AdvertisementDetails) {
-//        title = advertisementDetails.title
         setupSubviews()
         setAttributes(advertisementDetails)
         setupConstraints()
@@ -142,6 +150,7 @@ class AdvertisementDetailsViewController: UIViewController {
         scrollView.addSubview(contentView)
         [
             advertisementImageView,
+            loadingIndicator,
             advertisementPriceLabel,
             advertisementTitleLabel,
             advertisementAddressLabel,
@@ -157,7 +166,10 @@ class AdvertisementDetailsViewController: UIViewController {
     }
 
     private func setAttributes(_ advertisementDetails: AdvertisementDetails) {
-        advertisementImageView.sd_setImage(with: advertisementDetails.imageURL)
+        let _ = imageService.image(for: advertisementDetails.imageURL) { [weak self] image in
+            self?.advertisementImageView.image = image
+            self?.loadingIndicator.stopAnimating()
+        }
         advertisementPriceLabel.text = advertisementDetails.price
         advertisementTitleLabel.text = advertisementDetails.title
         advertisementAddressLabel.text = advertisementDetails.location + ", " + advertisementDetails.address
@@ -184,11 +196,14 @@ class AdvertisementDetailsViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
+
             advertisementImageView.widthAnchor.constraint(equalToConstant: view.frame.width),
             advertisementImageView.heightAnchor.constraint(equalToConstant: view.frame.width),
             advertisementImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             advertisementImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+
+            loadingIndicator.centerXAnchor.constraint(equalTo: advertisementImageView.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: advertisementImageView.centerYAnchor),
 
             advertisementPriceLabel.topAnchor.constraint(equalTo: advertisementImageView.bottomAnchor, constant: 12),
             advertisementPriceLabel.leadingAnchor.constraint(equalTo: advertisementImageView.leadingAnchor, constant: 12),

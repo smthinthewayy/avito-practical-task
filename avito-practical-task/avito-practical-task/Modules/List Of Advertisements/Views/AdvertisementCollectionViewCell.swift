@@ -27,9 +27,7 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     public func setupSubviews(_ advertisement: Advertisement) {
         loadingIndicator.startAnimating()
         imageRequest = imageService.image(for: advertisement.imageURL) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.imageView.image = image
-            }
+            self?.imageView.image = image
             self?.loadingIndicator.stopAnimating()
         }
         titleLabel.text = advertisement.title
@@ -83,7 +81,6 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         let view = UIImageView()
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
-        view.isSkeletonable = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
@@ -103,7 +100,6 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 16)
         label.textColor = .label
         label.numberOfLines = 2
-        label.isSkeletonable = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -112,7 +108,6 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .label
-        label.isSkeletonable = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -121,7 +116,6 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12)
         label.textColor = .secondaryLabel
-        label.isSkeletonable = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -130,7 +124,6 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12)
         label.textColor = .secondaryLabel
-        label.isSkeletonable = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -142,12 +135,9 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
 
     private func addSubviews() {
         addSubview(mainView)
-        mainView.addSubview(imageView)
-        mainView.addSubview(titleLabel)
-        mainView.addSubview(priceLabel)
-        mainView.addSubview(locationLabel)
-        mainView.addSubview(createdDate)
-        mainView.addSubview(loadingIndicator)
+        [imageView, titleLabel, priceLabel, locationLabel, createdDate, loadingIndicator].forEach { view in
+            mainView.addSubview(view)
+        }
     }
 
     private func setupConstraints() {

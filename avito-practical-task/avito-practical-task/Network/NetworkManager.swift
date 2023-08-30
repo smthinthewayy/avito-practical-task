@@ -27,31 +27,6 @@ final class NetworkManager {
         request(url: url, completion: completion)
     }
 
-    public func loadImageFromURL(_ url: String, completion: @escaping (UIImage) -> Void) {
-        downloadImageFromURL(urlString: url) { result in
-            switch result {
-            case let .success(networkImage):
-                if let networkImage = networkImage {
-                    completion(networkImage)
-                    DDLogInfo("Image downloaded successfully: \(networkImage)")
-                } else {
-                    completion(UIImage())
-                    DDLogError("Image is nil")
-                }
-            case let .failure(error):
-                switch error {
-                case .invalidURL:
-                    DDLogError("Invalid URL")
-                case let .networkError(error):
-                    DDLogError("Network error: \(error)")
-                case .invalidImageData:
-                    DDLogError("Invalid image data")
-                }
-                completion(UIImage())
-            }
-        }
-    }
-
     // MARK: Internal
 
     static let shared = NetworkManager()
@@ -117,33 +92,5 @@ final class NetworkManager {
         }
 
         task.resume()
-    }
-
-    private func downloadImageFromURL(urlString: String, completion: @escaping (Result<UIImage?, ImageDownloadError>) -> Void) {
-        guard let url = URL(string: urlString) else {
-            DispatchQueue.main.async {
-                completion(.failure(.invalidURL))
-            }
-            return
-        }
-
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    completion(.failure(.networkError(error)))
-                }
-                return
-            }
-
-            if let imageData = data, let image = UIImage(data: imageData) {
-                DispatchQueue.main.async {
-                    completion(.success(image))
-                }
-            } else {
-                DispatchQueue.main.async {
-                    completion(.failure(.invalidImageData))
-                }
-            }
-        }.resume()
     }
 }
