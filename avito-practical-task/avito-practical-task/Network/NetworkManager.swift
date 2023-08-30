@@ -40,14 +40,23 @@ final class NetworkManager {
     private func request<T>(url: URL, completion: @escaping (Result<T, Error>) -> Void) where T: Decodable {
         let request = URLRequest(url: url)
         let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 2
+
         let session = URLSession(configuration: config)
 
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 DDLogError("Возможно отсутствует подключение к сети или происходит проблема с установлением соединения с сервером")
                 DDLogError("\(error)")
-                DispatchQueue.main.async {
-                    completion(.failure(error))
+                if (error as NSError).code == NSURLErrorTimedOut {
+                    let timeoutError = NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut, userInfo: nil)
+                    DispatchQueue.main.async {
+                        completion(.failure(timeoutError))
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
                 }
                 return
             }

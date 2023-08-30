@@ -14,20 +14,9 @@ class AdvertisementDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        if let advertisementID = advertisementID {
-            loadingIndicator.startAnimating()
-            NetworkManager.shared.getAdvertisementDetails(for: advertisementID) { [weak self] result in
-                switch result {
-                case let .success(networkAdvertisementDetails):
-                    self?.advertisementDetails = NetworkConverter.shared.fromNetworkAdvertisementDetailsToAdvertisementDetails(networkAdvertisementDetails)
-                    if let advertisementDetails = self?.advertisementDetails {
-                        self?.setupUI(advertisementDetails)
-                    }
-                case let .failure(error):
-                    DDLogError("\(error)")
-                }
-            }
-        }
+        setupSubviews()
+        setupConstraints()
+        fetchAdvertisementDetails()
     }
 
     // MARK: Internal
@@ -139,10 +128,36 @@ class AdvertisementDetailsViewController: UIViewController {
         return label
     }()
 
+    private func fetchAdvertisementDetails() {
+        if let advertisementID = advertisementID {
+            loadingIndicator.startAnimating()
+            NetworkManager.shared.getAdvertisementDetails(for: advertisementID) { [weak self] result in
+                switch result {
+                case let .success(networkAdvertisementDetails):
+                    self?.advertisementDetails = NetworkConverter.shared.fromNetworkAdvertisementDetailsToAdvertisementDetails(networkAdvertisementDetails)
+                    if let advertisementDetails = self?.advertisementDetails {
+                        self?.setupUI(advertisementDetails)
+                    }
+                case let .failure(error):
+                    self?.loadingIndicator.stopAnimating()
+                    DDLogError("\(error)")
+                    self?
+                        .showAlert(title: "Error",
+                                   message: "Отсутствует подключение к сети или происходит проблема с установлением соединения с сервером")
+                    { index in
+                        if index == 0 {
+                            DispatchQueue.main.async {
+                                UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private func setupUI(_ advertisementDetails: AdvertisementDetails) {
-        setupSubviews()
         setAttributes(advertisementDetails)
-        setupConstraints()
     }
 
     private func setupSubviews() {

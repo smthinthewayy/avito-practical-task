@@ -18,6 +18,7 @@ class ListOfAdvertisementsViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         configureDataSource()
+        setupUI()
         fetchDataForAdvertisementCollectionView()
     }
 
@@ -47,10 +48,28 @@ class ListOfAdvertisementsViewController: UIViewController {
         return flowLayout
     }()
 
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+
+    private let errorLabel: UILabel = {
+        let label = UILabel()
+
+        return label
+    }()
+
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = "Рекомендации"
         collectionView?.delegate = self
+        view.addSubview(loadingIndicator)
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+        loadingIndicator.startAnimating()
     }
 
     private func fetchDataForAdvertisementCollectionView() {
@@ -58,10 +77,21 @@ class ListOfAdvertisementsViewController: UIViewController {
             switch result {
             case let .success(advertisements):
                 self?.advertisements = NetworkConverter.shared.fromNetworkAdvertisementsToAdvertisements(advertisements)
+                self?.loadingIndicator.stopAnimating()
                 self?.updateData()
-                self?.setupUI()
             case let .failure(error):
+                self?.loadingIndicator.stopAnimating()
                 DDLogError("\(error)")
+                self?
+                    .showAlert(title: "Error",
+                               message: "Отсутствует подключение к сети или происходит проблема с установлением соединения с сервером")
+                { index in
+                    if index == 0 {
+                        DispatchQueue.main.async {
+                            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                        }
+                    }
+                }
             }
         }
     }
