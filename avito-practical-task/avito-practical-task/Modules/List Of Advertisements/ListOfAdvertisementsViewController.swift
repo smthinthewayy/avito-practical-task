@@ -43,7 +43,7 @@ final class ListOfAdvertisementsViewController: UIViewController {
         let availableWidth = width - (padding * 2) - (minimumItemSpacing * 2)
         let itemWidth = availableWidth / 2
         flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + (itemWidth * 0.6))
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + (itemWidth * 0.7))
         return flowLayout
     }()
 

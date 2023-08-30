@@ -79,7 +79,7 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
 
     private let imageView: UIImageView = {
         let view = UIImageView()
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 4
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalTo: view.widthAnchor).isActive = true
@@ -102,6 +102,20 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+
+    private let favourites: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private let details: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(paletteColors: [.gray]))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     private let priceLabel: UILabel = {
@@ -135,7 +149,7 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
 
     private func addSubviews() {
         addSubview(mainView)
-        [imageView, titleLabel, priceLabel, locationLabel, createdDate, loadingIndicator].forEach { view in
+        [imageView, titleLabel, favourites, details, priceLabel, locationLabel, createdDate, loadingIndicator].forEach { view in
             mainView.addSubview(view)
         }
     }
@@ -154,8 +168,18 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
             loadingIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4),
-            titleLabel.widthAnchor.constraint(equalTo: mainView.widthAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: mainView.widthAnchor, constant: -24),
             titleLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+
+            favourites.topAnchor.constraint(equalTo: titleLabel.topAnchor),
+            favourites.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            favourites.heightAnchor.constraint(equalToConstant: 20),
+//            favourites.widthAnchor.constraint(equalToConstant: 20),
+
+            details.topAnchor.constraint(equalTo: favourites.bottomAnchor, constant: 16),
+            details.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
+//            details.heightAnchor.constraint(equalToConstant: 20),
+//            details.widthAnchor.constraint(equalToConstant: 20),
 
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             priceLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
