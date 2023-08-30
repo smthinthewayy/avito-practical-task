@@ -6,7 +6,6 @@
 //
 
 import CocoaLumberjackSwift
-import SkeletonView
 import UIKit
 
 // MARK: - ListOfAdvertisementsViewController
