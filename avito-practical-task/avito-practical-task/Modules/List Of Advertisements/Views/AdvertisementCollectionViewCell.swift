@@ -25,12 +25,12 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     // MARK: Public
 
     public func setupSubviews(_ advertisement: Advertisement) {
-        placeholder.isHidden = false
+        loadingIndicator.startAnimating()
         imageRequest = imageService.image(for: advertisement.imageURL) { [weak self] image in
             DispatchQueue.main.async {
                 self?.imageView.image = image
             }
-            self?.placeholder.isHidden = true
+            self?.loadingIndicator.stopAnimating()
         }
         titleLabel.text = advertisement.title
         priceLabel.text = advertisement.price
@@ -66,6 +66,12 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
 
     private var imageRequest: Cancellable?
 
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+
     private let mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -75,7 +81,6 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
 
     private let imageView: UIImageView = {
         let view = UIImageView()
-//        view.image = UIImage(named: "placeholder")
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.isSkeletonable = true
@@ -138,11 +143,11 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
     private func addSubviews() {
         addSubview(mainView)
         mainView.addSubview(imageView)
-        mainView.addSubview(placeholder)
         mainView.addSubview(titleLabel)
         mainView.addSubview(priceLabel)
         mainView.addSubview(locationLabel)
         mainView.addSubview(createdDate)
+        mainView.addSubview(loadingIndicator)
     }
 
     private func setupConstraints() {
@@ -155,10 +160,8 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: mainView.topAnchor),
             imageView.widthAnchor.constraint(equalTo: mainView.widthAnchor),
 
-            placeholder.heightAnchor.constraint(equalTo: imageView.heightAnchor),
-            placeholder.widthAnchor.constraint(equalTo: mainView.widthAnchor),
-            placeholder.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            placeholder.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+            loadingIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4),
             titleLabel.widthAnchor.constraint(equalTo: mainView.widthAnchor),
