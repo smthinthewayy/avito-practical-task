@@ -8,7 +8,7 @@
 import CocoaLumberjackSwift
 import UIKit
 
-class AdvertisementDetailsViewController: UIViewController {
+final class AdvertisementDetailsViewController: UIViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {

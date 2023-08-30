@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - AdvertisementCollectionViewCell
 
-class AdvertisementCollectionViewCell: UICollectionViewCell {
+final class AdvertisementCollectionViewCell: UICollectionViewCell {
     // MARK: Lifecycle
 
     override init(frame: CGRect) {

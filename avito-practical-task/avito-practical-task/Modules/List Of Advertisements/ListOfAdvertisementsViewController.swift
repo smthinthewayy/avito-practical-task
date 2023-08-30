@@ -11,7 +11,7 @@ import UIKit
 
 // MARK: - ListOfAdvertisementsViewController
 
-class ListOfAdvertisementsViewController: UIViewController {
+final class ListOfAdvertisementsViewController: UIViewController {
     // MARK: Lifecycle
 
     override func viewDidLoad() {
