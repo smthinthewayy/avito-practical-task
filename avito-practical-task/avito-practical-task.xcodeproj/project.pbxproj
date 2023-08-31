@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		717D57B62A9E352300118F36 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D57B52A9E352300118F36 /* ImageService.swift */; };
-		719A36C02A9F56CB000A0688 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719A36BF2A9F56CB000A0688 /* UIViewControllerExtension.swift */; };
 		71B83B832A97762100013C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83B822A97762100013C37 /* AppDelegate.swift */; };
 		71B83B852A97762100013C37 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83B842A97762100013C37 /* SceneDelegate.swift */; };
 		71B83B8C2A97762200013C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71B83B8B2A97762200013C37 /* Assets.xcassets */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		717D57B52A9E352300118F36 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		719A36BF2A9F56CB000A0688 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		71B83B7F2A97762100013C37 /* avito-practical-task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "avito-practical-task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71B83B822A97762100013C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71B83B842A97762100013C37 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,14 +74,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		719A36BE2A9F56B9000A0688 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				719A36BF2A9F56CB000A0688 /* UIViewControllerExtension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		71B83B762A97762100013C37 = {
 			isa = PBXGroup;
 			children = (
@@ -103,7 +93,6 @@
 		71B83B812A97762100013C37 /* avito-practical-task */ = {
 			isa = PBXGroup;
 			children = (
-				719A36BE2A9F56B9000A0688 /* Extensions */,
 				717D57B72A9E376100118F36 /* Services */,
 				71B83BAD2A9788C500013C37 /* App */,
 				71B83BA62A97881C00013C37 /* Network */,
@@ -269,7 +258,6 @@
 			files = (
 				71B83BBF2A97958100013C37 /* AdvertisementCollectionViewCell.swift in Sources */,
 				71B83B992A97795C00013C37 /* NetworkManager.swift in Sources */,
-				719A36C02A9F56CB000A0688 /* UIViewControllerExtension.swift in Sources */,
 				71B83B972A97781100013C37 /* ListOfAdvertisementsViewController.swift in Sources */,
 				71B83B832A97762100013C37 /* AppDelegate.swift in Sources */,
 				71B83BBC2A97937500013C37 /* AdvertisementDetailsViewController.swift in Sources */,
