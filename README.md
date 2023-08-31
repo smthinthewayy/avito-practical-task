@@ -1,6 +1,6 @@
 # Тестовое задание для стажёра iOS
 
-![example](./img/demo.png)
+![example](./img/example.png)
 
 ## Запуск
 
