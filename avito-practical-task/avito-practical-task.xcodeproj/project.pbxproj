@@ -27,6 +27,7 @@
 		71B83BB92A978B8200013C37 /* NetworkConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BB82A978B8200013C37 /* NetworkConverter.swift */; };
 		71B83BBC2A97937500013C37 /* AdvertisementDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BBB2A97937500013C37 /* AdvertisementDetailsViewController.swift */; };
 		71B83BBF2A97958100013C37 /* AdvertisementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */; };
+		71ED350F2AA0D70C00D5CE74 /* NoInternetConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ED350E2AA0D70C00D5CE74 /* NoInternetConnectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		71B83BB82A978B8200013C37 /* NetworkConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConverter.swift; sourceTree = "<group>"; };
 		71B83BBB2A97937500013C37 /* AdvertisementDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailsViewController.swift; sourceTree = "<group>"; };
 		71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
+		71ED350E2AA0D70C00D5CE74 /* NoInternetConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				71B83BBE2A97958100013C37 /* AdvertisementCollectionViewCell.swift */,
+				71ED350E2AA0D70C00D5CE74 /* NoInternetConnectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				71B83BAC2A97889700013C37 /* NetworkAdvertisementDetails.swift in Sources */,
 				71B83BB72A978AF700013C37 /* AdvertisementDetails.swift in Sources */,
 				71B83BB32A978A7100013C37 /* Advertisements.swift in Sources */,
+				71ED350F2AA0D70C00D5CE74 /* NoInternetConnectionView.swift in Sources */,
 				71B83BAA2A97888400013C37 /* NetworkAdvertisement.swift in Sources */,
 				71B83BA82A97887300013C37 /* NetworkAdvertisements.swift in Sources */,
 				717D57B62A9E352300118F36 /* ImageService.swift in Sources */,

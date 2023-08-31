@@ -89,6 +89,7 @@ final class AdvertisementDetailsViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Описание"
+        label.isHidden = true
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -98,6 +99,7 @@ final class AdvertisementDetailsViewController: UIViewController {
     private let contactsLabel: UILabel = {
         let label = UILabel()
         label.text = "Контакты"
+        label.isHidden = true
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -128,6 +130,8 @@ final class AdvertisementDetailsViewController: UIViewController {
         return label
     }()
 
+    private let noInternetConnectionView = NoInternetConnectionView()
+
     private func fetchAdvertisementDetails() {
         if let advertisementID = advertisementID {
             loadingIndicator.startAnimating()
@@ -141,22 +145,16 @@ final class AdvertisementDetailsViewController: UIViewController {
                 case let .failure(error):
                     self?.loadingIndicator.stopAnimating()
                     DDLogError("\(error)")
-                    self?
-                        .showAlert(title: "Error",
-                                   message: "Отсутствует подключение к сети или происходит проблема с установлением соединения с сервером")
-                    { index in
-                        if index == 0 {
-                            DispatchQueue.main.async {
-                                UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
-                            }
-                        }
-                    }
+
+                    self?.noInternetConnectionView.isHidden = false
                 }
             }
         }
     }
 
     private func setupUI(_ advertisementDetails: AdvertisementDetails) {
+        descriptionLabel.isHidden = false
+        contactsLabel.isHidden = false
         setAttributes(advertisementDetails)
     }
 
@@ -175,6 +173,7 @@ final class AdvertisementDetailsViewController: UIViewController {
             advertisementEmailLabel,
             advertisementPhoneNumberLabel,
             advertisementCreatedDateLabel,
+            noInternetConnectionView
         ].forEach { view in
             contentView.addSubview(view)
         }
@@ -217,8 +216,8 @@ final class AdvertisementDetailsViewController: UIViewController {
             advertisementImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             advertisementImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 
-            loadingIndicator.centerXAnchor.constraint(equalTo: advertisementImageView.centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: advertisementImageView.centerYAnchor),
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
             advertisementPriceLabel.topAnchor.constraint(equalTo: advertisementImageView.bottomAnchor, constant: 12),
             advertisementPriceLabel.leadingAnchor.constraint(equalTo: advertisementImageView.leadingAnchor, constant: 12),
@@ -248,6 +247,11 @@ final class AdvertisementDetailsViewController: UIViewController {
             advertisementCreatedDateLabel.topAnchor.constraint(equalTo: advertisementPhoneNumberLabel.bottomAnchor, constant: 16),
             advertisementCreatedDateLabel.leadingAnchor.constraint(equalTo: advertisementPhoneNumberLabel.leadingAnchor),
             advertisementCreatedDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
+            
+            noInternetConnectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            noInternetConnectionView.heightAnchor.constraint(equalToConstant: 150),
+            noInternetConnectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noInternetConnectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 }

@@ -53,20 +53,22 @@ final class ListOfAdvertisementsViewController: UIViewController {
         return activityIndicator
     }()
 
-    private let errorLabel: UILabel = {
-        let label = UILabel()
-
-        return label
-    }()
+    private let noInternetConnectionView = NoInternetConnectionView()
 
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = "Рекомендации"
         collectionView?.delegate = self
         view.addSubview(loadingIndicator)
+        view.addSubview(noInternetConnectionView)
         NSLayoutConstraint.activate([
             loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            noInternetConnectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            noInternetConnectionView.heightAnchor.constraint(equalToConstant: 150),
+            noInternetConnectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noInternetConnectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
         loadingIndicator.startAnimating()
     }
@@ -81,16 +83,7 @@ final class ListOfAdvertisementsViewController: UIViewController {
             case let .failure(error):
                 self?.loadingIndicator.stopAnimating()
                 DDLogError("\(error)")
-                self?
-                    .showAlert(title: "Error",
-                               message: "Отсутствует подключение к сети или происходит проблема с установлением соединения с сервером")
-                { index in
-                    if index == 0 {
-                        DispatchQueue.main.async {
-                            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
-                        }
-                    }
-                }
+                self?.noInternetConnectionView.isHidden = false
             }
         }
     }
